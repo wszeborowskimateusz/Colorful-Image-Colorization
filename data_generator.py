@@ -9,7 +9,7 @@ from keras.utils import Sequence
 
 from config import batch_size, img_rows, img_cols, nb_neighbors
 
-image_folder = '/mnt/code/ImageNet-Downloader/image/resized'
+image_folder = './image_data/valid_64x64'
 
 
 def get_soft_encoding(image_ab, nn_finder, nb_q):
