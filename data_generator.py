@@ -105,7 +105,7 @@ def valid_gen():
 
 
 def split_data():
-    names = [f for f in os.listdir(image_folder) if f.lower().endswith('.jpg')]
+    names = [f for f in os.listdir(image_folder) if f.lower().endswith('.png')]
 
     num_samples = len(names)  # 1341430
     print('num_samples: ' + str(num_samples))
