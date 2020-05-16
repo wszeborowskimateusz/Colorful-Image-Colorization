@@ -6,3 +6,4 @@ data/instance-level_human_parsing/
 models/
 logs/
 image_data/*/*.png
+images_output/

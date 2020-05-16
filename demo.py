@@ -14,13 +14,13 @@ from model import build_model
 if __name__ == '__main__':
     channel = 3
 
-    model_weights_path = 'models/model.08-5.7380.hdf5'
+    model_weights_path = 'models/model.01-19.0789.hdf5'
     model = build_model()
     model.load_weights(model_weights_path)
 
     print(model.summary())
 
-    image_folder = '/mnt/code/ImageNet-Downloader/image/resized'
+    image_folder = './image_data/valid_64x64'
     names_file = 'valid_names.txt'
     with open(names_file, 'r') as f:
         names = f.read().splitlines()
@@ -111,8 +111,8 @@ if __name__ == '__main__':
         if not os.path.exists('images'):
             os.makedirs('images')
 
-        cv.imwrite('images/{}_image.png'.format(i), gray)
-        cv.imwrite('images/{}_gt.png'.format(i), bgr)
-        cv.imwrite('images/{}_out.png'.format(i), out_bgr)
+        cv.imwrite('images_output/{}_image.png'.format(i), gray)
+        cv.imwrite('images_output/{}_gt.png'.format(i), bgr)
+        cv.imwrite('images_output/{}_out.png'.format(i), out_bgr)
 
     K.clear_session()
