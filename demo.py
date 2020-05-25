@@ -25,7 +25,7 @@ if __name__ == '__main__':
     with open(names_file, 'r') as f:
         names = f.read().splitlines()
 
-    samples = random.sample(names, 10)
+    samples = names#random.sample(names, 10)
 
     h, w = img_rows // 4, img_cols // 4
 
