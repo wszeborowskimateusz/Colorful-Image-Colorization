@@ -20,8 +20,8 @@ if __name__ == '__main__':
 
     print(model.summary())
 
-    image_folder = './image_data/valid_64x64'
-    names_file = 'valid_names.txt'
+    image_folder = './demo_input'
+    names_file = 'demo_names.txt'
     with open(names_file, 'r') as f:
         names = f.read().splitlines()
 
