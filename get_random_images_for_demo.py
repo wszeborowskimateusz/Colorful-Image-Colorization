@@ -18,10 +18,10 @@ datasets_folder = "../datasets/"
 
 datasets = [
     f"{datasets_folder}google_landscapes", 
-    f"{datasets_folder}google_landscapes",
-    f"{datasets_folder}google_landscapes",
-    f"{datasets_folder}google_landscapes",
-    f"{datasets_folder}google_landscapes"
+    f"{datasets_folder}celebryci",
+    f"{datasets_folder}kwiatki",
+    f"{datasets_folder}landscape",
+    f"{datasets_folder}ptaki"
 ]
 
 picked_datasets_indices = [0]
