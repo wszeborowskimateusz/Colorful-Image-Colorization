@@ -14,7 +14,7 @@ from model import build_model
 if __name__ == '__main__':
     channel = 3
 
-    model_weights_path = 'models/model.01-19.0789.hdf5'
+    model_weights_path = 'original_models/original.hdf5'#'models/model.01-19.0789.hdf5'
     model = build_model()
     model.load_weights(model_weights_path)
 
@@ -108,11 +108,11 @@ if __name__ == '__main__':
         # print('np.min(out_bgr): ' + str(np.min(out_bgr)))
         out_bgr = out_bgr.astype(np.uint8)
 
-        if not os.path.exists('images'):
-            os.makedirs('images')
+        if not os.path.exists('demo_output'):
+            os.makedirs('demo_output')
 
-        cv.imwrite('images_output/{}_image.png'.format(i), gray)
-        cv.imwrite('images_output/{}_gt.png'.format(i), bgr)
-        cv.imwrite('images_output/{}_out.png'.format(i), out_bgr)
+        cv.imwrite('demo_output/{}_image.png'.format(i), gray)
+        cv.imwrite('demo_output/{}_gt.png'.format(i), bgr)
+        cv.imwrite('demo_output/{}_out.png'.format(i), out_bgr)
 
     K.clear_session()

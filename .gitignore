@@ -5,6 +5,9 @@ data/instance-level_human_parsing.tar.gz
 data/instance-level_human_parsing/
 models/
 logs/
+original_models/
 image_data/
 images_output/
+demo_input/
+demo_output/
 .vscode/
