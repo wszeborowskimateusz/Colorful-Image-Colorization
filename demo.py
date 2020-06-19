@@ -11,7 +11,7 @@ from config import img_rows, img_cols
 from config import nb_neighbors, T, epsilon
 from model import build_model
 
-if __name__ == '__main__':
+def main():
     channel = 3
 
     model_weights_path = 'original_models/original.hdf5'#'models/model.01-19.0789.hdf5'
@@ -116,3 +116,6 @@ if __name__ == '__main__':
         cv.imwrite('demo_output/{}_out.png'.format(i), out_bgr)
 
     K.clear_session()
+
+if __name__ == '__main__':
+    main()

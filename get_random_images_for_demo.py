@@ -1,5 +1,6 @@
 import os, random, shutil
 import glob
+import string
 
 def remove_folder_content(path):
     for filename in os.listdir(path):
@@ -24,7 +25,7 @@ datasets = [
     f"{datasets_folder}ptaki"
 ]
 
-picked_datasets_indices = [0]
+picked_datasets_index = 1
 
 # First clear some folders
 demo_input_path = './demo_input'
@@ -35,14 +36,42 @@ remove_folder_content(demo_output_path)
 
 # Now pick some random images from dataset
 random_files = []
-files_per_dataset = files_to_pick // len(picked_datasets_indices) 
-for index in picked_datasets_indices:
-    folder_path = datasets[index]
-    for _ in range(files_per_dataset):
-        random_files.append(folder_path + "/" + random.choice(os.listdir(folder_path)))
+folder_path = datasets[picked_datasets_index]
+for _ in range(files_to_pick):
+    random_files.append(folder_path + "/" + random.choice(os.listdir(folder_path)))
 
 for random_file in random_files:
     shutil.copy2(random_file, demo_input_path)
 
 # Now generate names for them
 import generate_demo_file_names
+
+import demo
+demo.main()
+
+# Now save results with renamed name to results folder
+results_folder = '../results'
+N = 10
+file_index = 0
+for file in os.listdir(demo_output_path):
+    # 0 - gt
+    # 1 - black and white
+    # 2 - out
+    file_extension = file.split('.')[-1]
+    print(f"I am checking file: {file}")
+    if file_index % 3 == 0:
+        dataset_name = datasets[picked_datasets_index].split('/')[-1]
+        random_name = ''.join(random.choices(string.ascii_uppercase + string.digits, k=N))
+        gt = f"{dataset_name}_{random_name}_gt.{file_extension}"
+        bandw = f"{dataset_name}_{random_name}_black_and_white.{file_extension}"
+        out = f"{dataset_name}_{random_name}_out.{file_extension}"
+
+        shutil.copy2(f"{demo_output_path}/{file}", f"{results_folder}/{gt}")
+    elif file_index % 3 == 1:
+        # Black and white
+        shutil.copy2(f"{demo_output_path}/{file}", f"{results_folder}/{bandw}")
+    else:
+        # out
+        shutil.copy2(f"{demo_output_path}/{file}", f"{results_folder}/{out}")
+
+    file_index += 1
