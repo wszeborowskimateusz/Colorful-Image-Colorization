@@ -1,17 +1,38 @@
 import keras.backend as K
 import tensorflow as tf
-from keras.layers import Input, Conv2D, BatchNormalization, UpSampling2D
+from keras.layers import Input, Conv2D, BatchNormalization, UpSampling2D, Flatten
 from keras.models import Model
+from keras.applications import NASNetLarge
 from keras.regularizers import l2
 from keras.utils import multi_gpu_model
 from keras.utils import plot_model
+import config
 
 from config import img_rows, img_cols, num_classes, kernel
 
 l2_reg = l2(1e-3)
 
-
 def build_model():
+    base_model = NASNetLarge(weights='imagenet', include_top=False, pooling = None,\
+         input_shape=(config.img_rows,config.img_cols,3))
+
+    for layer in base_model.layers:
+        layer.trainable = False
+    x = base_model.output
+    x = UpSampling2D(size=(2, 2))(x)
+    x = Conv2D(128, (kernel, kernel), activation='relu', padding='same', name='conv8_1',
+               kernel_initializer="he_normal", kernel_regularizer=l2_reg)(x)
+    x = Conv2D(128, (kernel, kernel), activation='relu', padding='same', name='conv8_2',
+               kernel_initializer="he_normal", kernel_regularizer=l2_reg)(x)
+    x = Conv2D(128, (kernel, kernel), activation='relu', padding='same', name='conv8_3',
+               kernel_initializer="he_normal", kernel_regularizer=l2_reg)(x)
+    x = BatchNormalization()(x)
+    outputs = Conv2D(num_classes, (1, 1), activation='softmax', padding='same', name='pred')(x)
+
+    model = Model(inputs=base_model.input, outputs=outputs, name="ColorNet")
+    return model
+
+def build_model_original():
     input_tensor = Input(shape=(img_rows, img_cols, 1))
     x = Conv2D(64, (kernel, kernel), activation='relu', padding='same', name='conv1_1', kernel_initializer="he_normal",
                kernel_regularizer=l2_reg)(input_tensor)
