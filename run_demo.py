@@ -26,11 +26,11 @@ datasets = [
     f"{datasets_folder}ptaki"
 ]
 
+demo_input_path = './demo_input'
+demo_output_path = './demo_output'
+
 def run_demo(picked_datasets_index):
     # First clear some folders
-    demo_input_path = './demo_input'
-    demo_output_path = './demo_output'
-
     remove_folder_content(demo_input_path)
     remove_folder_content(demo_output_path)
 
@@ -77,3 +77,6 @@ def run_demo(picked_datasets_index):
 
 for i in range(len(datasets)):
     run_demo(i)
+
+remove_folder_content(demo_input_path)
+remove_folder_content(demo_output_path)
